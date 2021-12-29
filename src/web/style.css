@@ -1,0 +1,18 @@
+main {
+    display: flex;
+    width: 90%;
+}
+aside {
+    width: 20%;
+}
+section {
+    width: 80%;
+}
+input[type="submit"],
+input[type="file"] {
+    margin: 10px 0;
+}
+input[type="text"],
+input[type="email"]{
+    margin: 5px 0;
+}

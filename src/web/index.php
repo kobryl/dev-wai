@@ -6,20 +6,25 @@
     </head>
     <body>
     <header>
-        <h1>Kawoświat</h1>
+        <h1>tytuł</h1>
     </header>
     <main>
         <section id="gallery">
             <?php
-
+                echo "tu bedzie galeria";
             ?>
             <form name="upload" method="post" action="upload.php">
                 <fieldset>
-                    <label for="file">Prześlij zdjęcie:</label><br>
+                    <legend>Przesyłanie zdjęcia</legend>
+                    <label for="title">Tytuł:</label><br>
+                    <input type="text" name="title" id="title"><br>
+                    <label for="author">Autor:</label><br>
+                    <input type="text" name="author" id="author"><br>
+                    <label for="file">Wybierz plik (JPEG/PNG):</label><br>
                     <input type="hidden" name="MAX_FILE_SIZE" value="1048576">
                     <input type="file" name="file" id="file" accept="image/png, image/jpeg" required><br>
                     <label for="watermark">Znak wodny:</label><br>
-                    <input type="text" name="watermark" id="watermark" required>
+                    <input type="text" name="watermark" id="watermark" required><br>
                     <input type="submit" value="Prześlij"><br>
                 </fieldset>
             </form>
@@ -27,6 +32,7 @@
         <aside>
             <form name="login" method="post" action="login.php">
                 <fieldset>
+                    <legend>Logowanie</legend>
                     <label for="username">Nazwa użytkownika:</label><br>
                     <input type="text" id="username" name="username" required><br>
                     <label for="password">Hasło:</label><br>
@@ -36,6 +42,9 @@
             </form>
             <form name="register" method="post" action="register.php">
                 <fieldset>
+                    <legend>Rejestracja</legend>
+                    <label for="email_addr">Adres email:</label><br>
+                    <input type="email" name="email_addr" id="email_addr">
                     <label for="new_user">Nazwa użytkownika:</label> <br>
                     <input type="text" name="username" id="new_user" required> <br>
                     <label for="new_password">Hasło:</label> <br>

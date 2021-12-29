@@ -43,6 +43,7 @@
                     <label for="new_rep_password">Powtórz hasło:</label> <br>
                     <input type="password" id="new_rep_password" name="rep_password" required> <br>
                     <input type="submit" value="Zarejestruj"> <br>
+
                 </fieldset>
             </form>
         </aside>

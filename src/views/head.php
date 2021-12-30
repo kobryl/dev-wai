@@ -5,5 +5,8 @@
 </head>
 <body>
     <header>
-        <a href="/"><h1>tytuł</h1></a>
+        <h1>tytuł</h1>
     </header>
+    <nav>
+        <a href="/">Strona główna</a>
+    </nav>

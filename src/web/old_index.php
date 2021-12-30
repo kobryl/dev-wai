@@ -17,7 +17,7 @@
             <form action="418.php">
                 <input type="submit" value="Zaparz kawę">
             </form>
-            <form name="upload" method="post" action="upload.php" enctype="multipart/form-data">
+            <form name="upload" method="post" action="old_upload.php" enctype="multipart/form-data">
                 <fieldset>
                     <legend>Przesyłanie zdjęcia</legend>
                     <label for="title">Tytuł:</label><br>
@@ -35,7 +35,7 @@
             </form>
         </section>
         <aside>
-            <form name="login" method="post" action="login.php">
+            <form name="login" method="post" action="old_login.php">
                 <fieldset>
                     <legend>Logowanie</legend>
                     <label for="username">Nazwa użytkownika:</label><br>
@@ -45,7 +45,7 @@
                     <input type="submit" value="Zaloguj"><br>
                 </fieldset>
             </form>
-            <form name="register" method="post" action="register.php">
+            <form name="register" method="post" action="old_register.php">
                 <fieldset>
                     <legend>Rejestracja</legend>
                     <label for="email_addr">Adres email:</label><br>

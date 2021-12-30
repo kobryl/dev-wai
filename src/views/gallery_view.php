@@ -8,6 +8,8 @@
                 <?php
 
                 ?>
+                <a href="/upload">Prześlij zdjęcie</a>
+                <!--
                 <form name="upload" method="post" action="upload.php" enctype="multipart/form-data">
                     <fieldset>
                         <legend>Przesyłanie zdjęcia</legend>
@@ -24,9 +26,10 @@
                         <input type="submit" value="Prześlij"><br>
                     </fieldset>
                 </form>
+                -->
             </section>
             <aside>
-                <a href="login.php"
+                <a href="/login">Zaloguj</a>
                 <!--
                 <form name="login" method="post" action="login.php">
                     <fieldset>

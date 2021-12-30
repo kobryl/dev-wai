@@ -7,7 +7,7 @@ function gallery(&$model) {
     $dir = './images';
     $scanned_dir = array_diff(scandir($dir), array('..', '.'));
     foreach ($scanned_dir as $plik) {
-        $model['photos'] = '<img src="' . $dir . '/' . $plik . '" alt="zdjęcie">';
+        $model['photos'][] = '<img src="' . $dir . '/' . $plik . '" alt="zdjęcie">';
     }
     return 'gallery_view';
 }

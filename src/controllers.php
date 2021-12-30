@@ -4,6 +4,7 @@ require_once 'controller_utils.php';
 
 function gallery(&$model) {
     $model['photos'] = [];
+    $model['user'] = '';
     $dir = './images';
     $scanned_dir = array_diff(scandir($dir), array('..', '.'));
     foreach ($scanned_dir as $plik) {
@@ -18,11 +19,14 @@ function upload(&$model) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES["file"])) {
             $file = $_FILES['file'];
+            $watermark = $_POST['watermark'];
             $error_code = checkFileConds($file);
             if ($error_code == 0) {
                 $upload_status = doUpload($file);
                 if ($upload_status == 0) {
                     $model['result'] = "Plik " . $file['name'] . " został przesłany pomyślnie.";
+                    createThumbnail($file, $_SERVER["DOCUMENT_ROOT"]);
+                    createWatermark($file, $_SERVER["DOCUMENT_ROOT"], $watermark);
                     return 'upload_success';
                 }
                 else {

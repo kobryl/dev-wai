@@ -5,28 +5,7 @@
     ?>
         <main>
             <section id="gallery">
-                <?php
-
-                ?>
                 <a href="/upload">Prześlij zdjęcie</a>
-                <!--
-                <form name="upload" method="post" action="upload.php" enctype="multipart/form-data">
-                    <fieldset>
-                        <legend>Przesyłanie zdjęcia</legend>
-                        <label for="title">Tytuł:</label><br>
-                        <input type="text" name="title" id="title"><br>
-                        <label for="author">Autor:</label><br>
-                        <input type="text" name="author" id="author" value="<?php
-
-                        ?>"><br>
-                        <label for="file">Wybierz plik (JPEG/PNG):</label><br>
-                        <input type="file" name="file" id="file" accept="image/png, image/jpeg" required><br>
-                        <label for="watermark">Znak wodny:</label><br>
-                        <input type="text" name="watermark" id="watermark" required><br>
-                        <input type="submit" value="Prześlij"><br>
-                    </fieldset>
-                </form>
-                -->
             </section>
             <aside>
                 <a href="/login">Zaloguj</a>

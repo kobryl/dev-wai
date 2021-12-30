@@ -15,6 +15,11 @@ function get_db() {
     return $db;
 }
 
+function getFileType($file) {
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    return finfo_file($finfo, $file["tmp_name"]);
+}
+
 function checkFileConds($file) {
     if ($file["error"] == UPLOAD_ERR_OK) {
         $sizeFlag = 0;
@@ -22,8 +27,7 @@ function checkFileConds($file) {
         if ($file["size"] > 1048576) {
             $sizeFlag = 1;
         }
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $filetype = finfo_file($finfo, $file["tmp_name"]);
+        $filetype = getFileType($file);
         if ($filetype != 'image/jpeg' && $filetype != 'image/png') {
             $typeFlag = 2;
         }
@@ -41,4 +45,45 @@ function doUpload($file) {
     else {
         return 1;
     }
+}
+
+function getSrcImg($file, $dir) {
+    $name = $file['name'];
+    $type = getFileType($file);
+    $path = $dir . '/images/' . $name;
+    $thumbPath = $dir . '/images/thumbnails/' . $name;
+    $create_command = match ($type) {
+        "image/jpeg" => 'imagecreatefromjpeg',
+        "image/png" => 'imagecreatefrompng'
+    };
+    return $create_command($path);
+}
+
+function createThumbnail($file, $dir) {
+    $thumbH = 125;
+    $thumbW = 200;
+    $srcImg = getSrcImg($file, $dir);
+    $srcW = imagesx($srcImg);
+    $srcH = imagesy($srcImg);
+    $destImg = imagecreatetruecolor($thumbW, $thumbH);
+    $destImgPath = $dir . '/images/thumbnails/' . $file['name'];
+    imagecopyresampled($destImg, $srcImg, 0, 0, 0, 0, $thumbW, $thumbH, $srcW, $srcH);
+    imagejpeg($destImg, $destImgPath);
+    imagedestroy($srcImg);
+    imagedestroy($destImg);
+}
+
+function createWatermark($file, $dir, $watermark) {
+    $srcImg = getSrcImg($file, $dir);
+    $srcW = imagesx($srcImg);
+    $srcH = imagesy($srcImg);
+    $destImg = imagecreatetruecolor($srcW, $srcH);
+    $destImgPath = $dir . '/images/watermark/' . $file['name'];
+    imagecopy($destImg, $srcImg, 0, 0, 0, 0, $srcW, $srcH);
+    $margRight = 10;
+    $margBottom = 10;
+    imagestring($destImg, 1, 10, 10, $watermark, imagecolorallocatealpha($destImg, 124, 124, 124, 85));
+    imagejpeg($destImg, $destImgPath);
+    imagedestroy($srcImg);
+    imagedestroy($destImg);
 }

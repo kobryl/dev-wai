@@ -5,5 +5,5 @@
 </head>
 <body>
     <header>
-        <h1>tytuł</h1>
+        <a href="/"><h1>tytuł</h1></a>
     </header>

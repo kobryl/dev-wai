@@ -4,7 +4,7 @@ require_once 'controller_utils.php';
 
 function gallery(&$model) {
     $model['photos'] = [];
-    $dir = $_SERVER['DOCUMENT_ROOT'] . '/web/images';
+    $dir = $_SERVER['DOCUMENT_ROOT'] . '/images';
     $scanned_dir = array_diff(scandir($dir), array('..', '.'));
     foreach ($scanned_dir as $plik) {
         $model['photos'] = '<img src="' . $dir . '/' . $plik . '" alt="zdjęcie">';

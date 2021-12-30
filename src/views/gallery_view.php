@@ -1,2 +1,2 @@
 <?php
-echo 'galeria itd';
+echo $photos[0];

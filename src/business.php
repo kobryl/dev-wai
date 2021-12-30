@@ -15,6 +15,3 @@ function get_db() {
     return $db;
 }
 
-function upload($file) {
-
-}

@@ -7,3 +7,4 @@
 
     $action_url = $_GET['action'];
     dispatch($routing, $action_url);
+    echo 'trol';

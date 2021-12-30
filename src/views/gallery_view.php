@@ -1,2 +1,2 @@
 <?php
-echo $photos[0];
+echo $photos;

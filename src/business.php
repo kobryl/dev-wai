@@ -49,8 +49,8 @@ function doUpload($file) {
 
 function getSrcImg($file, $dir) {
     $name = $file['name'];
-    $type = getFileType($file);
     $path = $dir . '/images/' . $name;
+    $type = mime_content_type($path);
     $thumbPath = $dir . '/images/thumbnails/' . $name;
     switch($type) {
         case "image/jpeg":

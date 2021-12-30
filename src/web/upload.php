@@ -1,13 +1,15 @@
 <?php
     if (isset($_FILES["file"])) {
-        if ($_FILES["file"]["error"] == UPLOAD_ERR_OK) {
+        $file = $_FILES["file"];
+
+        if ($file["error"] == UPLOAD_ERR_OK) {
             $sizeFlag = 0;
             $typeFlag = 0;
-            if ($_FILES["file"]["size"] > 1048576) {
+            if ($file["size"] > 1048576) {
                 $sizeFlag = 1;
             }
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $filetype = finfo_file($finfo, $_FILES["file"]["tmp_name"]);
+            $filetype = finfo_file($finfo, $file["tmp_name"]);
             if ($filetype != 'image/jpeg' && $filetype != 'image/png') {
                 $typeFlag = 1;
             }
@@ -29,8 +31,8 @@
                 }
             }
             $uploaddir = $_SERVER["DOCUMENT_ROOT"] . '/images/';
-            $uploadfile = $uploaddir . basename($_FILES["file"]["name"]);
-            if (move_uploaded_file($_FILES["file"]["tmp_name"], $uploadfile)) {
+            $uploadfile = $uploaddir . basename($file["name"]);
+            if (move_uploaded_file($file["tmp_name"], $uploadfile)) {
                 echo "Plik został przesłany pomyślnie.";
             }
             else {

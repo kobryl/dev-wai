@@ -52,10 +52,13 @@ function getSrcImg($file, $dir) {
     $type = getFileType($file);
     $path = $dir . '/images/' . $name;
     $thumbPath = $dir . '/images/thumbnails/' . $name;
-    $create_command = match ($type) {
-        "image/jpeg" => 'imagecreatefromjpeg',
-        "image/png" => 'imagecreatefrompng'
-    };
+    switch($type) {
+        case "image/jpeg":
+            $create_command = 'imagecreatefromjpeg';
+            break;
+        default:
+            $create_command = 'imagecreatefrompng';
+    }
     return $create_command($path);
 }
 

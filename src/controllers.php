@@ -13,7 +13,8 @@ function gallery(&$model) {
 }
 
 function upload(&$model) {
-    $result = '';
+    $model['result'] = '';
+    $model['user'] = '';
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES["file"])) {
             $file = $_FILES['file'];
@@ -58,10 +59,10 @@ function upload(&$model) {
             }
         }
         else {
-            $model['user'] = "not implemented yet";
             return 'redirect:upload';
         }
     }
+    $model['user'] = "not implemented yet";
     return 'upload_view';
 }
 

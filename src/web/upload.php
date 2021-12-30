@@ -35,7 +35,7 @@
             }
             else {
                 header("HTTP/1.1 500 Internal Server Error");
-                echo "Wystąpił problem z przetwarzaniem żadania. Proszę sprbować póżniej.<br><a href=\"index.php\">Wróć</a>";
+                echo "Wystąpił problem z przetwarzaniem żadania. Proszę spróbować póżniej.<br><a href=\"index.php\">Wróć</a>";
                 die();
             }
         }

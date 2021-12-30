@@ -31,12 +31,28 @@ function upload(&$model) {
             }
             else {
                 $model['result'] = "<p style=\"color: red\">";
+                /*
                 $model['result'] .= match ($error_code) {
                     1 => "Plik jest za duży. Maksymalny rozmiar przesyłanego pliku to 1 MB.",
                     2 => "Niepoprawny format pliku.",
                     3 => "Niepoprawny format pliku.<br>Plik jest za duży. Maksymalny rozmiar przesyłanego pliku to 1 MB.",
                     4 => "Wystąpił błąd przy przesyłaniu pliku. Proszę spróbować później",
                 };
+                */
+                switch ($error_code) {
+                    case 1:
+                        $model['result'] .= "Plik jest za duży. Maksymalny rozmiar przesyłanego pliku to 1 MB.";
+                        break;
+                    case 2:
+                        $model['result'] .= "Niepoprawny format pliku.";
+                        break;
+                    case 3:
+                        $model['result'] .= "Niepoprawny format pliku.<br>Plik jest za duży. Maksymalny rozmiar przesyłanego pliku to 1 MB.";
+                        break;
+                    case 4:
+                        $model['result'] .= "Wystąpił błąd przy przesyłaniu pliku. Proszę spróbować później";
+                        break;
+                }
                 $model['result'] .= "</p>";
                 return 'upload_view';
             }

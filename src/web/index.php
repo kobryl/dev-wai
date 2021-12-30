@@ -27,7 +27,6 @@
 
                     ?>"><br>
                     <label for="file">Wybierz plik (JPEG/PNG):</label><br>
-                    <!--<input type="hidden" name="MAX_FILE_SIZE" value="1048576">-->
                     <input type="file" name="file" id="file" accept="image/png, image/jpeg" required><br>
                     <label for="watermark">Znak wodny:</label><br>
                     <input type="text" name="watermark" id="watermark" required><br>

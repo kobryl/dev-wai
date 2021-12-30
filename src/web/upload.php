@@ -16,10 +16,11 @@
             $uploaddir = $_SERVER["DOCUMENT_ROOT"] . '/images/';
             $uploadfile = $uploaddir . basename($_FILES["file"]["name"]);
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $uploadfile)) {
-                header("HTTP/1.1 200 OK");
+                echo "Plik został przesłany pomyślnie";
             }
             else {
                 header("HTTP/1.1 500 Internal Server Error");
+                echo "Wystąpił problem z przetwarzaniem żadania. Proszę sprbować póżniej.<br><a href=\"index.php\">Wróć</a>";
             }
         }
         else {
@@ -29,6 +30,6 @@
         }
     }
     else {
-        header("Location: index.php", 303);
+        header("Location: index.php", 302);
         die();
     }

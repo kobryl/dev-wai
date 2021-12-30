@@ -31,7 +31,7 @@
             $uploaddir = $_SERVER["DOCUMENT_ROOT"] . '/images/';
             $uploadfile = $uploaddir . basename($_FILES["file"]["name"]);
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $uploadfile)) {
-                echo "Plik został przesłany pomyślnie";
+                echo "Plik został przesłany pomyślnie.";
             }
             else {
                 header("HTTP/1.1 500 Internal Server Error");

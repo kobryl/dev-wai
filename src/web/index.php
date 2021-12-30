@@ -14,7 +14,7 @@
     <main>
         <section id="gallery">
             <h6>Galeria</h6>
-            <form action="teapot.php">
+            <form action="418.php">
                 <input type="submit" value="Zaparz kawę">
             </form>
             <form name="upload" method="post" action="upload.php">

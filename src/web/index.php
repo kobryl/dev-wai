@@ -17,7 +17,7 @@
             <form action="418.php">
                 <input type="submit" value="Zaparz kawę">
             </form>
-            <form name="upload" method="post" action="upload.php">
+            <form name="upload" method="post" action="upload.php" enctype="multipart/form-data">
                 <fieldset>
                     <legend>Przesyłanie zdjęcia</legend>
                     <label for="title">Tytuł:</label><br>

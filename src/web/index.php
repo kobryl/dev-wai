@@ -1,3 +1,6 @@
+<?php
+
+?>
 <html lang="pl">
     <head>
         <meta name="author" content="Konrad Bryłowski">
@@ -10,16 +13,19 @@
     </header>
     <main>
         <section id="gallery">
-            <?php
-                echo "tu bedzie galeria";
-            ?>
+            <h6>Galeria</h6>
+            <form action="teapot.php">
+                <input type="submit" value="Zaparz kawę">
+            </form>
             <form name="upload" method="post" action="upload.php">
                 <fieldset>
                     <legend>Przesyłanie zdjęcia</legend>
                     <label for="title">Tytuł:</label><br>
                     <input type="text" name="title" id="title"><br>
                     <label for="author">Autor:</label><br>
-                    <input type="text" name="author" id="author"><br>
+                    <input type="text" name="author" id="author" value="<?php
+
+                    ?>"><br>
                     <label for="file">Wybierz plik (JPEG/PNG):</label><br>
                     <input type="hidden" name="MAX_FILE_SIZE" value="1048576">
                     <input type="file" name="file" id="file" accept="image/png, image/jpeg" required><br>

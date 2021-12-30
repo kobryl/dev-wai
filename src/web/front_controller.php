@@ -8,4 +8,4 @@
     $action_url = $_GET['action'];
     dispatch($routing, $action_url);
     if (isset($routing))
-    echo 'trol';
+    echo $routing['/'];

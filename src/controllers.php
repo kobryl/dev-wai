@@ -13,7 +13,40 @@ function gallery(&$model) {
 }
 
 function upload(&$model) {
-
+    $result = '';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_FILES["file"])) {
+            $file = $_FILES['file'];
+            $error_code = checkFileConds($file);
+            if ($error_code == 0) {
+                $upload_status = doUpload($file);
+                if ($upload_status == 0) {
+                    $model['result'] = "Plik" . $file['name'] . " został przesłany pomyślnie.";
+                    return 'upload_view';
+                }
+                else {
+                    $model['result'] = 'upload_error';
+                    return 'upload_view';
+                }
+            }
+            else {
+                $model['result'] = "<p style=\"color: red\">";
+                $model['result'] .= match ($error_code) {
+                    1 => "Plik jest za duży. Maksymalny rozmiar przesyłanego pliku to 1 MB.",
+                    2 => "Niepoprawny format pliku.",
+                    3 => "Niepoprawny format pliku.<br>Plik jest za duży. Maksymalny rozmiar przesyłanego pliku to 1 MB.",
+                    4 => "Wystąpił błąd przy przesyłaniu pliku. Proszę spróbować później",
+                };
+                $model['result'] .= "</p>";
+                return 'upload_view';
+            }
+        }
+        else {
+            $model['user'] = "not implemented yet";
+            return 'redirect:upload';
+        }
+    }
+    return 'upload_view';
 }
 
 function login(&$model) {

@@ -1,2 +1,4 @@
 <?php
-echo $photos;
+foreach ($photos as $photo) {
+    echo $photo;
+}

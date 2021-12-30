@@ -16,3 +16,6 @@ input[type="text"],
 input[type="email"]{
     margin: 5px 0;
 }
+nav {
+    padding: 10px;
+}

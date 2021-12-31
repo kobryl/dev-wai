@@ -5,7 +5,7 @@
     ?>
         <main>
             <section id="gallery">
-                <a href="/upload">Prześlij zdjęcie</a>
+
             </section>
             <aside>
                 <a href="/login">Zaloguj</a>
@@ -37,8 +37,7 @@
                 -->
             </aside>
         </main>
-        <footer>
-            <p>&copy; 2021 Konrad Bryłowski</p>
-        </footer>
-    </body>
+    <?php
+        include 'foot.php';
+    ?>
 </html>

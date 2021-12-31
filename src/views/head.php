@@ -1,12 +1,14 @@
 <head>
     <meta name="author" content="Konrad Bryłowski">
-    <title>Kawoświat</title>
+    <title>Galeria kawy</title>
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>
 <body>
     <header>
-        <h1>tytuł</h1>
+        <a href="/"><img src="" alt="Logo"></a><br>
+        <h1>Galeria kawy</h1>
     </header>
     <nav>
-        <a href="/">Strona główna</a>
+        <a href="/">Strona główna</a><br>
+        <a href="/upload">Prześlij zdjęcie</a>
     </nav>

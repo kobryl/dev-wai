@@ -10,7 +10,7 @@ function gallery(&$model) {
     $dir = './images/thumbnails';
     $scanned_dir = array_diff(scandir($dir), array('..', '.'));
     foreach ($scanned_dir as $plik) {
-        $model['photos'][] = '<a href="./images/watermark/' . $plik .'"><img src="' . $dir . '/' . $plik . '" alt="zdjęcie"></a>';
+        $model['photos'][] = '<a href="./images/watermark/' . $plik . '_watermark.png"><img src="' . $dir . '/' . $plik . '" alt="zdjęcie"></a>';
     }
     $model['totalpages'] = ceil(count($model['photos']) / $photosperpage);
     $model['photosperpage'] = $photosperpage;

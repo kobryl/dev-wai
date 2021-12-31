@@ -86,8 +86,8 @@ function createWatermark($file, $dir, $watermark) {
     $bbox = imagettfbbox($size, 0, $font, 'ky');
     $x = 8; $y = 8 - $bbox[5];
 
-    $black = imagecolorallocate($img, 0, 0, 0);
-    $white = imagecolorallocate($img, 255, 255, 255);
+    $black = imagecolorallocatealpha($img, 0, 0, 0, 85);
+    $white = imagecolorallocatealpha($img, 255, 255, 255, 85);
     imagettftext($img, $size, 0, $x + 1, $y + 1, $black, $font, $watermark);
     imagettftext($img, $size, 0, $x + 0, $y + 1, $black, $font, $watermark);
     imagettftext($img, $size, 0, $x + 0, $y + 0, $white, $font, $watermark);

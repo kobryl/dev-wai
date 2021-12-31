@@ -4,20 +4,16 @@ require 'vendor/autoload.php';
 use MongoDB\BSON\ObjectId;
 
 function get_db() {
-    try {
-        $mongo = new MongoDB\Client(
-            "mongodb://localhost:27017/wai",
-            [
-                'username' => 'wai_web',
-                'password' => 'w@i_w3b'
-            ]);
+    $mongo = new MongoDB\Client(
+        "mongodb://localhost:27017/wai",
+        [
+            'username' => 'wai_web',
+            'password' => 'w@i_w3b'
+        ]);
 
-        $db = $mongo->wai;
+    $db = $mongo->wai;
 
-        return $db;
-    } catch (Exception $e) {
-        return NULL;
-    }
+    return $db;
 }
 
 function getFileType($file) {

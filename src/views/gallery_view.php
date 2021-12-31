@@ -6,10 +6,10 @@
         <main>
             <section id="gallery">
                 <?php
-                    $prevLink = '<button type="button" '. ($page == 1 ? 'disabled>' : '>') . '<a href=?page=' . $page - 1 . '>&larr;</a></button>';
-                    $nextLink = '<button type="button" '. ($page == $totalpages ? 'disabled>' : '>') . '<a href=?page=' . $page + 1 . '>&rarr;</a></button>';
-                    $firstLink = '<button type="button" '. ($page == 1 ? 'disabled>' : '>') . '<a href=?page=' . 1 . '>&llarr;</a></button>';
-                    $lastLink = '<button type="button" '. ($page == $totalpages ? 'disabled>' : '>') . '<a href=?page=' . $totalpages . '>&rrarr;</a></button>';
+                    $prevLink = '<a href=?page=' . $page - 1 . 'onclick="'. ($page == 1 ? 'return false;' : 'return true;') .'"><button type="button" '. ($page == 1 ? 'disabled>' : '>') . '&larr;</button></a>';
+                    $nextLink = '<a href=?page=' . $page - 1 . '><button type="button" '. ($page == $totalpages ? 'disabled>' : '>') . '&rarr;</button></a>';
+                    $firstLink = '<a href=?page=' . $page - 1 . '><button type="button" '. ($page == 1 ? 'disabled>' : '>') . '&llarr;</button></a>';
+                    $lastLink = '<a href=?page=' . $page - 1 . '><button type="button" '. ($page == $totalpages ? 'disabled>' : '>') . '&rrarr;</button></a>';
                 ?>
                 <div id="page_info">
                     <p>Strona <?=$page?> z <?=$totalpages?></p>

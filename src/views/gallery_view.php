@@ -15,8 +15,13 @@
                     </p>
                 </div>
                 <?php
-                    for ($i = ($page - 1) * $photosperpage; $i < min($page * $photosperpage, count($photos)); $i++)
+                    for ($i = ($page - 1) * $photosperpage; $i < min($page * $photosperpage, count($photos)); $i++) {
+                        echo '<div class="galleryElement>';
                         echo $photos[$i]['photo'];
+                        echo '<br><p>Tytuł: '. $photos[$i]['title'] . '</p>';
+                        echo '<p>Autor: ' . $photos[$i]['author'] . '</p>';
+                        echo '</div>';
+                    }
                 ?>
             </section>
             <aside>

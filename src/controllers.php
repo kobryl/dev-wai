@@ -13,6 +13,7 @@ function gallery(&$model) {
         $model['photos'][] = '<a href="./images/' . $plik .'><img src="' . $dir . '/' . $plik . '" alt="zdjęcie"></a>';
     }
     $model['totalpages'] = ceil(count($model['photos']) / $photosperpage);
+    $model['photosperpage'] = $photosperpage;
     return 'gallery_view';
 }
 

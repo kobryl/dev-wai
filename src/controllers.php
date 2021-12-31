@@ -12,7 +12,7 @@ function gallery(&$model) {
     foreach ($scanned_dir as $plik) {
         $model['photos'][] = '<a href="./images/' . $plik .'><img src="' . $dir . '/' . $plik . '" alt="zdjęcie"></a>';
     }
-    $model['total_pages'] = ceil(count($model['photos']) / $photosperpage);
+    $model['totalpages'] = ceil(count($model['photos']) / $photosperpage);
     return 'gallery_view';
 }
 

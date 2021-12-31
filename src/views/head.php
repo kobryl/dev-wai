@@ -11,4 +11,7 @@
     <nav>
         <a href="/gallery">Galeria</a><br>
         <a href="/upload">Prześlij zdjęcie</a>
+        <a href="/login">Zaloguj się</a>
+        <a href="/register">Zarejestruj się</a>
+        <a href="/logout">Wyloguj</a>
     </nav>

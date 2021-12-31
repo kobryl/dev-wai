@@ -82,7 +82,7 @@ function upload(&$model) {
 
 function login(&$model) {
     $model['result'] = '';
-    if (($_SERVER['REQUEST_METHOD'] === 'POST')) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -96,11 +96,50 @@ function login(&$model) {
         } else {
             return 'redirect:/login';
         }
-    } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    } else {
         return 'login_view';
     }
 }
 
 function register(&$model) {
+    $model['result'] = '';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['rep_password']) && isset($_POST['email_addr'])) {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $rep_password = $_POST['rep_password'];
+            $email = $_POST['email_addr'];
+            $free = isUsernameFree($username);
+            if ($free === true) {
+                if ($password === $rep_password) {
+                    if (addUser($email, $username, $password) === 0) {
+                        return 'register_success';
+                    } else {
+                        $model['result'] = 'Wystąpił nieznany problem. Proszę spróbować później.';
+                        return 'register_view';
+                    }
+                } else {
+                    $model['result'] = 'Hasła nie są jednakowe.';
+                    return 'register_view';
+                }
+            } elseif ($free === false) {
+                $model['result'] = 'Nazwa użytkownika jest zajęta.';
+                return 'register_view';
+            } else {
+                $model['result'] = 'Wystąpił nieznany problem. Proszę spróbować później.';
+                return 'register_view';
+            }
+        } else {
+            return 'redirect:/register';
+        }
+    } else {
+        return 'register_view';
+    }
+}
 
+function logout(&$model) {
+    session_destroy();
+    session_unset();
+
+    return 'logout_view';
 }

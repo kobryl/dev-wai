@@ -155,3 +155,31 @@ function getUserById($id) {
         return $e;
     }
 }
+
+function isUsernameFree($username) {
+    try {
+        $db = get_db();
+        $user = $db->users->findOne(['username' => $username]);
+        if ($user === null) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (Exception $e) {
+        return $e;
+    }
+}
+
+function addUser($email, $username, $password) {
+    try {
+        $db = get_db();
+        $user = $db->users->insertOne([
+            'email' => $email,
+            'username' => $username,
+            'password' => password_hash($password, PASSWORD_DEFAULT)
+        ]);
+        return 0;
+    } catch (Exception $e) {
+        return $e;
+    }
+}

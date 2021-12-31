@@ -19,3 +19,6 @@ input[type="email"]{
 nav {
     padding: 10px;
 }
+.galleryContainer {
+    display: flex;
+}

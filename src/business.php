@@ -115,6 +115,7 @@ function getPhoto($name) {
         ]);
         return $photo;
     } catch (Exception $e) {
+        var_dump($e);
         return ['', '', ''];
     }
 }

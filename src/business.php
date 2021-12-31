@@ -51,7 +51,6 @@ function getSrcImg($file, $dir) {
     $name = $file['name'];
     $path = $dir . '/images/' . $name;
     $type = mime_content_type($path);
-    $thumbPath = $dir . '/images/thumbnails/' . $name;
     switch($type) {
         case "image/jpeg":
             $create_command = 'imagecreatefromjpeg';
@@ -77,16 +76,33 @@ function createThumbnail($file, $dir) {
 }
 
 function createWatermark($file, $dir, $watermark) {
-    $srcImg = getSrcImg($file, $dir);
-    $srcW = imagesx($srcImg);
-    $srcH = imagesy($srcImg);
-    $destImg = imagecreatetruecolor($srcW, $srcH);
-    $destImgPath = $dir . '/images/watermark/' . $file['name'];
-    imagecopy($destImg, $srcImg, 0, 0, 0, 0, $srcW, $srcH);
-    $margRight = 10;
-    $margBottom = 10;
-    imagestring($destImg, 1, 10, 10, $watermark, imagecolorallocatealpha($destImg, 124, 124, 124, 85));
-    imagejpeg($destImg, $destImgPath);
-    imagedestroy($srcImg);
-    imagedestroy($destImg);
+    $img = getSrcImg($file, $dir);
+    $srcW = imagesx($img);
+    $srcH = imagesy($img);
+    $destImgPath = $dir . '/images/watermark/' . $file['name'] . '_watermark.png';
+
+    list($width, $height) = getimagesize($dir . '/images/' . $file['name']);
+    $font = realpath('.') . '/static/fonts/.ttf';
+    $size = $width*4/100;  // calculating font size based on image width.
+
+    # calculate maximum height of a character
+    $bbox = imagettfbbox($size, 0, $font, 'ky');
+    $x = 8; $y = 8 - $bbox[5];
+
+    $black = imagecolorallocate($image, 0, 0, 0);
+    $white = imagecolorallocate($image, 255, 255, 255);
+    imagettftext($image, $size, 0, $x + 1, $y + 1, $black, $font, $WaterMarkText);
+    imagettftext($image, $size, 0, $x + 0, $y + 1, $black, $font, $WaterMarkText);
+    imagettftext($image, $size, 0, $x + 0, $y + 0, $white, $font, $WaterMarkText);
+
+    //header("Content-Type: image/jpeg");
+    // imagejpeg($image, null, 90);
+
+    if ($SourceFile <> '') {
+        imagejpeg ($image, $SourceFile, 100);
+    } else {
+        header('Content-Type: image/jpeg');
+        imagejpeg($image, null, 100);
+    };
+    imagedestroy($image);
 }

@@ -16,7 +16,9 @@
                 <input type="text" name="watermark" id="watermark" required><br>
                 <input type="submit" value="Prześlij"><br>
             </fieldset>
-            <?= $result ?>
+            <p style="color: red;">
+                <?= $result ?>
+            </p>
         </form>
     </body>
 </html>

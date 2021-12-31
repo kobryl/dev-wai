@@ -38,24 +38,23 @@ function upload(&$model) {
                     return 'upload_success';
                 }
                 else {
-                    $model['result'] = 'upload_error';
+                    $model['result'] = 'Wystąpił błąd przy przesyłaniu pliku. Prosimy spróbować później.';
                     return 'upload_view';
                 }
             }
             else {
-                $model['result'] = "<p style=\"color: red\">";
                 switch ($error_code) {
                     case 1:
-                        $model['result'] .= "Plik jest za duży. Maksymalny rozmiar przesyłanego pliku to 1 MB.";
+                        $model['result'] = "Plik jest za duży. Maksymalny rozmiar przesyłanego pliku to 1 MB.";
                         break;
                     case 2:
-                        $model['result'] .= "Niepoprawny format pliku.";
+                        $model['result'] = "Niepoprawny format pliku. Proszę wybrać plikw formacie JPEG lub PNG.";
                         break;
                     case 3:
-                        $model['result'] .= "Niepoprawny format pliku.<br>Plik jest za duży. Maksymalny rozmiar przesyłanego pliku to 1 MB.";
+                        $model['result'] = "Niepoprawny format pliku. Proszę wybrać plikw formacie JPEG lub PNG.<br>Plik jest za duży. Maksymalny rozmiar przesyłanego pliku to 1 MB.";
                         break;
                     case 4:
-                        $model['result'] .= "Wystąpił błąd przy przesyłaniu pliku. Proszę spróbować później";
+                        $model['result'] = "Wystąpił błąd przy przesyłaniu pliku. Proszę spróbować później.";
                         break;
                 }
                 $model['result'] .= "</p>";

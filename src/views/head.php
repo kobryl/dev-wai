@@ -9,6 +9,6 @@
         <h1>Galeria kawy</h1>
     </header>
     <nav>
-        <a href="/">Strona główna</a><br>
+        <a href="/gallery">Galeria</a><br>
         <a href="/upload">Prześlij zdjęcie</a>
     </nav>

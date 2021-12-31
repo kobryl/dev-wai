@@ -16,7 +16,7 @@
                     <p class="nav_btns"><?=$firstLink . ' ' . $prevLink . ' ' . $nextLink . ' ' . $lastLink?></p>
                 </div>
                 <?php
-                    for ($i = ($page - 1) * $photosperpage, $i < min($page * $photosperpage, count($photos)), $i++)
+                    for ($i = ($page - 1) * $photosperpage; $i < min($page * $photosperpage, count($photos)); $i++)
                         echo $photos[$i];
                 ?>
             </section>

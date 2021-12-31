@@ -14,15 +14,17 @@
                         <a href="?page=<?= $totalpages ?>" onclick="return <?= $page < $totalpages?>;"><button type="button" <?=$page == $totalpages ? 'disabled' : ''?>>&rrarr;</button></a>
                     </p>
                 </div>
-                <?php
-                    for ($i = ($page - 1) * $photosperpage; $i < min($page * $photosperpage, count($photos)); $i++) {
-                        echo '<div class="galleryElement>';
-                        echo $photos[$i]['photo'];
-                        echo '<br><p>Tytuł: '. $photos[$i]['title'] . '</p>';
-                        echo '<p>Autor: ' . $photos[$i]['author'] . '</p>';
-                        echo '</div>';
-                    }
-                ?>
+                <div class="galleryContainer">
+                    <?php
+                        for ($i = ($page - 1) * $photosperpage; $i < min($page * $photosperpage, count($photos)); $i++) {
+                            echo '<div class="galleryElement">';
+                            echo $photos[$i]['photo'];
+                            echo '<br><p>Tytuł: '. $photos[$i]['title'] . '</p>';
+                            echo '<p>Autor: ' . $photos[$i]['author'] . '</p>';
+                            echo '</div>';
+                        }
+                    ?>
+                </div>
             </section>
             <aside>
                 <a href="/login">Zaloguj</a>

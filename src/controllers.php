@@ -3,7 +3,6 @@ require_once 'business.php';
 require_once 'controller_utils.php';
 
 function gallery(&$model) {
-    $model['page'] = $_GET['page'] ?? 1;
     $photosperpage = 3;
     $model['photos'] = [];
     $model['user'] = '';
@@ -14,6 +13,11 @@ function gallery(&$model) {
     }
     $model['totalpages'] = ceil(count($model['photos']) / $photosperpage);
     $model['photosperpage'] = $photosperpage;
+    if (isset($_GET['page'])) {
+        $model['page'] = $_GET['page'];
+        $model['page'] = max($model['page'], 1);
+        $model['page'] = min($model['page'], $model['totalpages']);
+    } else $model['page'] = 1;
     return 'gallery_view';
 }
 

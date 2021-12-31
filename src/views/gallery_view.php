@@ -5,15 +5,14 @@
     ?>
         <main>
             <section id="gallery">
-                <?php
-                    $prevLink = '<a href="?page=' . $page - 1 . '" onclick="'. ($page == 1 ? 'return false;' : 'return true;') .'"><button type="button" '. ($page == 1 ? 'disabled>' : '>') . '&larr;</button></a>';
-                    $nextLink = '<a href="?page=' . $page - 1 . '"><button type="button" '. ($page == $totalpages ? 'disabled>' : '>') . '&rarr;</button></a>';
-                    $firstLink = '<a href="?page=' . $page - 1 . '"><button type="button" '. ($page == 1 ? 'disabled>' : '>') . '&llarr;</button></a>';
-                    $lastLink = '<a href="?page=' . $page - 1 . '"><button type="button" '. ($page == $totalpages ? 'disabled>' : '>') . '&rrarr;</button></a>';
-                ?>
                 <div id="page_info">
                     <p>Strona <?=$page?> z <?=$totalpages?></p>
-                    <p class="nav_btns"><?=$firstLink . ' ' . $prevLink . ' ' . $nextLink . ' ' . $lastLink?></p>
+                    <p class="nav_btns">
+                        <a href="?page=<?= $page - 1 ?>" onclick="return <?= $page > 1?>;"><button type="button" <?=$page == 1 ? 'disabled' : ''?>>&llarr;</button></a>
+                        <a href="?page=<?= $page - 1 ?>" onclick="return <?= $page > 1?>;"><button type="button" <?=$page == 1 ? 'disabled' : ''?>>&larr;</button></a>
+                        <a href="?page=<?= $page - 1 ?>" onclick="return <?= $page < $totalpages?>;"><button type="button" <?=$page == $totalpages ? 'disabled' : ''?>>&rarr;</button></a>
+                        <a href="?page=<?= $page - 1 ?>" onclick="return <?= $page < $totalpages?>;"><button type="button" <?=$page == $totalpages ? 'disabled' : ''?>>&rrarr;</button></a>
+                    </p>
                 </div>
                 <?php
                     for ($i = ($page - 1) * $photosperpage; $i < min($page * $photosperpage, count($photos)); $i++)

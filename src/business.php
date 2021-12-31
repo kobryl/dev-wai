@@ -15,6 +15,7 @@ function get_db() {
 
         return $db;
     } catch (Exception $e) {
+        var_dump($e);
         return NULL;
     }
 }

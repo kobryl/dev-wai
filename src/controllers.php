@@ -9,7 +9,11 @@ function gallery(&$model) {
     $dir = './images/thumbnails';
     $scanned_dir = array_diff(scandir($dir), array('..', '.'));
     foreach ($scanned_dir as $plik) {
-        $model['photos'][] = '<a href="./images/watermark/' . $plik . '_watermark.png"><img src="' . $dir . '/' . $plik . '" alt="zdjęcie"></a>';
+        $model['photos'][] = [
+            'photo' => '<a href="./images/watermark/' . $plik . '_watermark.png"><img src="' . $dir . '/' . $plik . '" alt="zdjęcie"></a>',
+            'author' => getImgAuthor($plik),
+            'title' => getImgTitle($plik)
+            ];
     }
     $model['totalpages'] = ceil(count($model['photos']) / $photosperpage);
     $model['photosperpage'] = $photosperpage;
@@ -27,6 +31,8 @@ function upload(&$model) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES["file"])) {
             $file = $_FILES['file'];
+            $author = $_POST['author'] ?? '';
+            $title = $_POST['title'] ?? '';
             $watermark = $_POST['watermark'];
             $error_code = checkFileConds($file);
             if ($error_code == 0) {
@@ -35,6 +41,7 @@ function upload(&$model) {
                     $model['result'] = "Plik " . $file['name'] . " został przesłany pomyślnie.";
                     createThumbnail($file, $_SERVER["DOCUMENT_ROOT"]);
                     createWatermark($file, $_SERVER["DOCUMENT_ROOT"], $watermark);
+                    saveImgInfo($file['name'], $author, $title);
                     return 'upload_success';
                 }
                 else {

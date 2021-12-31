@@ -95,3 +95,31 @@ function createWatermark($file, $dir, $watermark) {
     imagepng($img, $destImgPath);
     imagedestroy($img);
 }
+
+function saveImgInfo($name, $author, $title) {
+    $db = get_db();
+    $photo = [
+        'name' => $name,
+        'author' => $author,
+        'title' => $title
+    ];
+    $db->photos->insertOne($photo);
+}
+
+function getPhoto($name) {
+    $db = get_db();
+    $photo = $db->photos->findOne([
+        'name' => $name
+    ]);
+    return $photo;
+}
+
+function getImgAuthor($name) {
+    $photo = getPhoto($name);
+    return $photo['author'];
+}
+
+function getImgTitle($name) {
+    $photo = getPhoto($name);
+    return $photo['title'];
+}

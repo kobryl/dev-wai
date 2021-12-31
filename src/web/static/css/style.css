@@ -21,4 +21,5 @@ nav {
 }
 .galleryContainer {
     display: flex;
+    margin: 10px;
 }

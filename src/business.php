@@ -108,16 +108,11 @@ function saveImgInfo($name, $author, $title) {
 }
 
 function getPhoto($name) {
-    try {
-        $db = get_db();
-        $photo = $db->photos->findOne([
-            'name' => $name
-        ]);
-        return $photo;
-    } catch (Exception $e) {
-        var_dump($e);
-        return ['', '', ''];
-    }
+    $db = get_db();
+    $photo = $db->photos->findOne([
+        'name' => $name
+    ]);
+    return $photo;
 }
 
 function getImgAuthor($name) {

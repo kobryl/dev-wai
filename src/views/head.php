@@ -11,7 +11,12 @@
     <nav>
         <a href="/gallery">Galeria</a><br>
         <a href="/upload">Prześlij zdjęcie</a>
-        <a href="/login">Zaloguj się</a>
-        <a href="/register">Zarejestruj się</a>
-        <a href="/logout">Wyloguj</a>
+        <?php
+            if (empty($_SESSION['user_id'])) {
+            echo '<a href="/login">Zaloguj się</a> ';
+            echo '<a href="/register">Zarejestruj się</a>';
+            } else {
+                echo '<a href="/logout">Wyloguj</a>';
+            }
+        ?>
     </nav>

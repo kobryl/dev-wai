@@ -140,6 +140,7 @@ function register(&$model) {
 function logout(&$model) {
     session_destroy();
     session_unset();
+    session_start();
 
     return 'logout_view';
 }

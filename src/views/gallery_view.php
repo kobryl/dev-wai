@@ -5,7 +5,20 @@
     ?>
         <main>
             <section id="gallery">
-
+                <?php
+                    $prevLink = '<button type="button" '. ($page == 1 ? 'disabled>' : '>') . '<a href=?page=' . $page - 1 . '>&larr;</a></button>';
+                    $nextLink = '<button type="button" '. ($page == $totalpages ? 'disabled>' : '>') . '<a href=?page=' . $page + 1 . '>&rarr;</a></button>';
+                    $firstLink = '<button type="button" '. ($page == 1 ? 'disabled>' : '>') . '<a href=?page=' . 1 . '>&llarr;</a></button>';
+                    $lastLink = '<button type="button" '. ($page == $totalpages ? 'disabled>' : '>') . '<a href=?page=' . $totalpages . '>&rrarr;</a></button>';
+                ?>
+                <div id="page_info">
+                    <p>Strona <?=$page?> z <?=$totalpages?></p>
+                    <p class="nav_btns"><?=$firstLink . ' ' . $prevLink . ' ' . $nextLink . ' ' . $lastLink?></p>
+                </div>
+                <?php
+                    for ($i = ($page - 1) * $photosperpage, $i < min($page * $photosperpage, count($photos)), $i++)
+                        echo $photos[$i];
+                ?>
             </section>
             <aside>
                 <a href="/login">Zaloguj</a>

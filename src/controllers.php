@@ -3,13 +3,16 @@ require_once 'business.php';
 require_once 'controller_utils.php';
 
 function gallery(&$model) {
+    $model['page'] = $_GET['page'] ?? 1;
+    $photosperpage = 3;
     $model['photos'] = [];
     $model['user'] = '';
-    $dir = './images';
+    $dir = './images/thumbnails';
     $scanned_dir = array_diff(scandir($dir), array('..', '.'));
     foreach ($scanned_dir as $plik) {
-        $model['photos'][] = '<img src="' . $dir . '/' . $plik . '" alt="zdjęcie">';
+        $model['photos'][] = '<a href="./images/' . $plik .'><img src="' . $dir . '/' . $plik . '" alt="zdjęcie"></a>';
     }
+    $model['total_pages'] = ceil(count($model['photos']) / $photosperpage);
     return 'gallery_view';
 }
 

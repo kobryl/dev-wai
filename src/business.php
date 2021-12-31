@@ -1,5 +1,6 @@
 <?php
 
+require 'vendor/autoload.php';
 use MongoDB\BSON\ObjectId;
 
 function get_db() {
@@ -15,7 +16,6 @@ function get_db() {
 
         return $db;
     } catch (Exception $e) {
-        var_dump($e);
         return NULL;
     }
 }

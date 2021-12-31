@@ -20,5 +20,7 @@
                 <?= $result ?>
             </p>
         </form>
-    </body>
+    <?php
+        include 'foot.php';
+    ?>
 </html>

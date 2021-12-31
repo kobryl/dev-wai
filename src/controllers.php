@@ -20,7 +20,7 @@ function gallery(&$model) {
     if (isset($_GET['page'])) {
         $model['page'] = $_GET['page'];
         $model['page'] = max($model['page'], 1);
-        $model['page'] = min($model['page'], $model['totalpages']);
+        $model['page'] = max(1, min($model['page'], $model['totalpages']));
     } else $model['page'] = 1;
     return 'gallery_view';
 }
@@ -72,12 +72,33 @@ function upload(&$model) {
             return 'redirect:upload';
         }
     }
-    $model['user'] = "not implemented yet";
+    if (!empty($_SESSION['user_id'])) {
+        $model['user'] = getUserById($_SESSION['user_id']);
+    } else {
+        $model['user'] = '';
+    }
     return 'upload_view';
 }
 
 function login(&$model) {
-
+    $model['result'] = '';
+    if (($_SERVER['REQUEST_METHOD'] === 'POST')) {
+        if (isset($_POST['username']) && isset($_POST['password'])) {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            if (readUser($username, $password)) {
+                $model['result'] = 'Zalogowano pomyślnie';
+                return 'login_success';
+            } else {
+                $model['result'] = 'Nie znaleziono użytkownika o podanych danych.';
+                return 'login_view';
+            }
+        } else {
+            return 'redirect:/login';
+        }
+    } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        return 'login_view';
+    }
 }
 
 function register(&$model) {

@@ -129,3 +129,29 @@ function getImgTitle($name) {
     $photo = getPhoto($name);
     return $photo['title'];
 }
+
+function readUser($username, $password) {
+    try {
+        $db = get_db();
+        $user = $db->users->findOne(['username' => $username]);
+        if ($user !== null && password_verify($password, $user['password'])) {
+            session_regenerate_id();
+            $_SESSION['user_id'] = $user['_id'];
+            return true;
+        } else return false;
+    } catch (Exception $e) {
+        return $e;
+    }
+}
+
+function getUserById($id) {
+    try {
+        $db = get_db();
+        $user = $db->users->findOne(['_id' => $id]);
+        if ($user !== null)
+            return $user['username'];
+        else return '';
+    } catch (Exception $e) {
+        return $e;
+    }
+}

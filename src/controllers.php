@@ -3,31 +3,27 @@ require_once 'business.php';
 require_once 'controller_utils.php';
 
 function gallery(&$model) {
+    $user = $_SESSION['user_id'] ?? false;
     if (!isset($_SESSION['remembered']))
         $_SESSION['remembered'] = [];
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $photosperpage = 3;
         $model['photos'] = [];
-        $model['user'] = '';
+        $model['addr'] = [];
         $dir_t = './images/thumbnails';
         $dir_w = './images/watermark';
         $photos = getPhotos();
-        $addrs_t = [];
-        $addrs_w = [];
         foreach ($photos as $photo) {
-            $model['photos'][] = $photo;
-            $addrs_t[] = getAddr($dir_t, $photo['name']);
-            $addrs_w[] = getAddr($dir_w, $photo['name'] . '_watermark.png');
+            if (!isset($photo['private']) or $photo['private'] == 'false' or $photo['author'] == getUserById($user)) {
+                getPhoto($photo, $model['photos'], $model['addr'], $dir_t, $dir_w);
+            }
         }
-        $model['addr']['thumb'] = $addrs_t;
-        $model['addr']['wm'] = $addrs_w;
         $model['totalpages'] = ceil(count($model['photos']) / $photosperpage);
         $model['photosperpage'] = $photosperpage;
         if (isset($_GET['page'])) {
             $model['page'] = $_GET['page'];
-            $model['page'] = max($model['page'], 1);
-            $model['page'] = max(1, min($model['page'], $model['totalpages']));
-        } else $model['page'] = 1;
+            $model['page'] = normalizePage($model['page'], $model['totalpages']);
+        }else $model['page'] = 1;
         return 'gallery_view';
     } else {
         if (isset($_POST['remember'])) {
@@ -43,13 +39,18 @@ function gallery(&$model) {
 
 function upload(&$model) {
     $model['result'] = '';
-    $model['user'] = '';
+    if (!empty($_SESSION['user_id'])) {
+        $model['user'] = getUserById($_SESSION['user_id']);
+    } else {
+        $model['user'] = '';
+    }
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES["file"])) {
             $file = $_FILES['file'];
             $author = $_POST['author'] ?? '';
             $title = $_POST['title'] ?? '';
             $watermark = $_POST['watermark'];
+            $private = $_POST['private'] ?? 'false';
             $error_code = checkFileConds($file);
             if ($error_code == 0) {
                 $upload_status = doUpload($file);
@@ -57,7 +58,7 @@ function upload(&$model) {
                     $model['result'] = "Plik " . $file['name'] . " został przesłany pomyślnie.";
                     createThumbnail($file, $_SERVER["DOCUMENT_ROOT"]);
                     createWatermark($file, $_SERVER["DOCUMENT_ROOT"], $watermark);
-                    saveImgInfo($file['name'], $author, $title);
+                    saveImgInfo($file['name'], $author, $title, $private);
                     return 'upload_success';
                 }
                 else {
@@ -87,11 +88,6 @@ function upload(&$model) {
         else {
             return 'redirect:upload';
         }
-    }
-    if (!empty($_SESSION['user_id'])) {
-        $model['user'] = getUserById($_SESSION['user_id']);
-    } else {
-        $model['user'] = '';
     }
     return 'upload_view';
 }
@@ -159,4 +155,38 @@ function logout(&$model) {
     session_start();
 
     return 'logout_view';
+}
+
+function bookmarked(&$model) {
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $photosperpage = 3;
+        $model['photos'] = [];
+        $model['addr'] = [];
+        $dir_t = './images/thumbnails';
+        $dir_w = './images/watermark';
+        $photos = getPhotos();
+        foreach ($photos as $photo) {
+            if (in_array($photo['_id'], $_SESSION['remembered'])) {
+                getPhoto($photo, $model['photos'], $model['addr'], $dir_t, $dir_w);
+            }
+        }
+        $model['totalpages'] = ceil(count($model['photos']) / $photosperpage);
+        $model['photosperpage'] = $photosperpage;
+        if (isset($_GET['page'])) {
+            $model['page'] = $_GET['page'];
+            $model['page'] = normalizePage($model['page'], $model['totalpages']);
+        } else $model['page'] = 1;
+    } else {
+        if (isset($_POST['remember'])) {
+            $remembered = $_POST['remember'];
+            foreach ($remembered as $photo) {
+                if (($key = array_search($photo, $_SESSION['remembered'])) !== false) {
+                    unset($_SESSION['remembered'][$key]);
+                }
+            }
+        }
+        $page = $_GET['page'] ?? 1;
+        return 'redirect:bookmarked?page=' . $page;
+    }
+    return 'bookmarked_view';
 }

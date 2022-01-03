@@ -1,4 +1,4 @@
 <footer>
-    &copy; 2021 Konrad Bryłowski
+    &copy; 2022 Konrad Bryłowski
 </footer>
 </body

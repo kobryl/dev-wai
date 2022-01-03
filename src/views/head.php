@@ -1,5 +1,6 @@
 <head>
     <meta name="author" content="Konrad Bryłowski">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Galeria kawy</title>
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>
@@ -9,7 +10,7 @@
         <h1>Galeria kawy</h1>
     </header>
     <nav>
-        <a href="/gallery">Galeria</a> <a href="/bookmarked">Zapamiętane zdjęcia</a><br>
+        <a href="/gallery">Galeria</a> <a href="/bookmarked">Zapamiętane zdjęcia</a> <a href="/search">Wyszukiwarka</a><br>
         <a href="/upload">Prześlij zdjęcie</a>
         <?php
             if (empty($_SESSION['user_id'])) {

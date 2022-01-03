@@ -17,13 +17,24 @@ function get_db() {
 }
 
 function getFileType($file) {
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    return finfo_file($finfo, $file["tmp_name"]);
+    $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+    switch (strtolower($ext)) {
+        case 'jpg':
+        case 'jpeg':
+        case 'jpe':
+        case 'jfif':
+        case 'jif':
+            return 'image/jpeg';
+        case 'png':
+            return 'image/png';
+        default:
+            return 'unsupported';
+    }
 }
 
 function checkFileConds($file) {
-    if ($file["error"] == UPLOAD_ERR_OK) {
-        $sizeFlag = 0;
+    if ($file["error"] == UPLOAD_ERR_OK or $file['error'] == UPLOAD_ERR_INI_SIZE or $file['error'] == UPLOAD_ERR_FORM_SIZE) {
+        $sizeFlag = $file['error'] ? 1 : 0;
         $typeFlag = 0;
         if ($file["size"] > 1048576) {
             $sizeFlag = 1;
@@ -97,37 +108,15 @@ function createWatermark($file, $dir, $watermark) {
     imagedestroy($img);
 }
 
-function saveImgInfo($name, $author, $title) {
+function saveImgInfo($name, $author, $title, $private) {
     $db = get_db();
     $photo = [
         'name' => $name,
         'author' => $author,
-        'title' => $title
+        'title' => $title,
+        'private' => $private
     ];
     $db->photos->insertOne($photo);
-}
-
-function getPhoto($name) {
-    try {
-        $db = get_db();
-        $photo = $db->photos->findOne([
-            'name' => $name
-        ]);
-        return $photo;
-    } catch (Exception $e) {
-        var_dump($e);
-        return ['', '', ''];
-    }
-}
-
-function getImgAuthor($name) {
-    $photo = getPhoto($name);
-    return $photo['author'];
-}
-
-function getImgTitle($name) {
-    $photo = getPhoto($name);
-    return $photo['title'];
 }
 
 function readUser($username, $password) {
@@ -199,10 +188,14 @@ function getAddr($dir, $file) {
     return $dir . '/' . $file;
 }
 
-function getArr($mongo) {
-    $arr = [];
-    foreach ($mongo as $key => $value) {
-        $arr[$key] = $value;
-    }
-    return $arr;
+function normalizePage($page, $totalpages) {
+    $page = max($page, 1);
+    $page = max(1, min($page, $totalpages));
+    return $page;
+}
+
+function getPhoto($photo, &$photos, &$addr, $dir_t, $dir_w) {
+    $photos[] = $photo;
+    $addr['thumb'][] = getAddr($dir_t, $photo['name']);
+    $addr['wm'][] = getAddr($dir_w, $photo['name'] . '_watermark.png');
 }

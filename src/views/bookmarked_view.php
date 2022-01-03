@@ -7,17 +7,17 @@
             <section id="gallery">
                 <div id="page_info">
                     <?php
-                        include 'page_info.php';
+                    include 'page_info.php';
                     ?>
                 </div>
-                <form method="post" action="/gallery?page=<?= $page ?>">
+                <form method="post" action="/bookmarked?page=<?= $page ?>">
                     <div class="galleryContainer">
                         <?php
-                            $mode = 'gallery';
+                            $mode = 'bookmarked';
                             include 'gallery.php';
                         ?>
                     </div>
-                    <input type="submit" value="Zapamiętaj wybrane">
+                    <input type="submit" value="Usuń zaznaczone z zapamiętanych">
                 </form>
             </section>
         </main>

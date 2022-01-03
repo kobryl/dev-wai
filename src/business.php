@@ -183,3 +183,26 @@ function addUser($email, $username, $password) {
         return $e;
     }
 }
+
+function &getPhotos() {
+    $photos = [];
+    try {
+        $db = get_db();
+        $photos = $db->photos->find();
+        return $photos;
+    } catch (Exception $e) {
+        return $photos;
+    }
+}
+
+function getAddr($dir, $file) {
+    return $dir . '/' . $file;
+}
+
+function getArr($mongo) {
+    $arr = [];
+    foreach ($mongo as $key => $value) {
+        $arr[$key] = $value;
+    }
+    return $arr;
+}

@@ -4,6 +4,11 @@ const REDIRECT_PREFIX = 'redirect:';
 
 function dispatch($routing, $action_url)
 {
+    if (!array_key_exists($action_url, $routing)) {
+        http_response_code(404);
+        echo "404 Not Found";
+        die;
+    }
     $controller_name = $routing[$action_url];
     $model = [];
     $view_name = $controller_name($model);

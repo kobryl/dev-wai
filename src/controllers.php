@@ -3,26 +3,42 @@ require_once 'business.php';
 require_once 'controller_utils.php';
 
 function gallery(&$model) {
-    $photosperpage = 3;
-    $model['photos'] = [];
-    $model['user'] = '';
-    $dir = './images/thumbnails';
-    $scanned_dir = array_diff(scandir($dir), array('..', '.'));
-    foreach ($scanned_dir as $plik) {
-        $model['photos'][] = [
-            'photo' => '<a href="./images/watermark/' . $plik . '_watermark.png"><img src="' . $dir . '/' . $plik . '" alt="zdjęcie"></a>',
-            'author' => getImgAuthor($plik),
-            'title' => getImgTitle($plik)
-            ];
+    if (!isset($_SESSION['remembered']))
+        $_SESSION['remembered'] = [];
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $photosperpage = 3;
+        $model['photos'] = [];
+        $model['user'] = '';
+        $dir_t = './images/thumbnails';
+        $dir_w = './images/watermark';
+        $photos = getPhotos();
+        $addrs_t = [];
+        $addrs_w = [];
+        foreach ($photos as $photo) {
+            $model['photos'][] = $photo;
+            $addrs_t[] = getAddr($dir_t, $photo['name']);
+            $addrs_w[] = getAddr($dir_w, $photo['name'] . '_watermark.png');
+        }
+        $model['addr']['thumb'] = $addrs_t;
+        $model['addr']['wm'] = $addrs_w;
+        $model['totalpages'] = ceil(count($model['photos']) / $photosperpage);
+        $model['photosperpage'] = $photosperpage;
+        if (isset($_GET['page'])) {
+            $model['page'] = $_GET['page'];
+            $model['page'] = max($model['page'], 1);
+            $model['page'] = max(1, min($model['page'], $model['totalpages']));
+        } else $model['page'] = 1;
+        return 'gallery_view';
+    } else {
+        if (isset($_POST['remember'])) {
+            $remembered = $_POST['remember'];
+            foreach ($remembered as $photo) {
+                $_SESSION['remembered'][] = $photo;
+            }
+        }
+        $page = $_GET['page'] ?? 1;
+        return 'redirect:gallery?page=' . $page;
     }
-    $model['totalpages'] = ceil(count($model['photos']) / $photosperpage);
-    $model['photosperpage'] = $photosperpage;
-    if (isset($_GET['page'])) {
-        $model['page'] = $_GET['page'];
-        $model['page'] = max($model['page'], 1);
-        $model['page'] = max(1, min($model['page'], $model['totalpages']));
-    } else $model['page'] = 1;
-    return 'gallery_view';
 }
 
 function upload(&$model) {

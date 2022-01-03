@@ -9,7 +9,7 @@
         <h1>Galeria kawy</h1>
     </header>
     <nav>
-        <a href="/gallery">Galeria</a><br>
+        <a href="/gallery">Galeria</a> <a href="/bookmarked">Zapamiętane zdjęcia</a><br>
         <a href="/upload">Prześlij zdjęcie</a>
         <?php
             if (empty($_SESSION['user_id'])) {

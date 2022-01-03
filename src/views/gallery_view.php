@@ -14,47 +14,22 @@
                         <a href="?page=<?= $totalpages ?>" onclick="return <?= $page < $totalpages?>;"><button type="button" <?=$page == $totalpages ? 'disabled' : ''?>>&rrarr;</button></a>
                     </p>
                 </div>
-                <div class="galleryContainer">
-                    <?php
-                        for ($i = ($page - 1) * $photosperpage; $i < min($page * $photosperpage, count($photos)); $i++) {
-                            echo '<div class="galleryElement">';
-                            echo $photos[$i]['photo'];
-                            echo '<br><p>Tytuł: '. $photos[$i]['title'] . '</p>';
-                            echo '<p>Autor: ' . $photos[$i]['author'] . '</p>';
-                            echo '</div>';
-                        }
-                    ?>
-                </div>
+                <form method="post" action="/gallery?page=<?= $page ?>">
+                    <div class="galleryContainer">
+                        <?php
+                            for ($i = ($page - 1) * $photosperpage; $i < min($page * $photosperpage, count($photos)); $i++) {
+                                echo '<div class="galleryElement">';
+                                echo '<a href="' . $addr['wm'][$i] . '"><img src="' . $addr['thumb'][$i] . '" alt="zdjęcie"></a>';
+                                echo '<br><p>Tytuł: '. $photos[$i]['title'] . '</p>';
+                                echo '<p>Autor: ' . $photos[$i]['author'] . '</p>';
+                                echo '<input type="checkbox" name="remember[]" id="remember_' . $i . '" value="' . $photos[$i]["_id"] . '" ' . (in_array($photos[$i]['_id'], $_SESSION['remembered']) ? 'checked disabled' : ' ') . '><label for="remember_' . $i .'">zapamiętaj</label>';
+                                echo '</div>';
+                            }
+                        ?>
+                    </div>
+                    <input type="submit" value="Zapamiętaj wybrane">
+                </form>
             </section>
-            <aside>
-                <a href="/login">Zaloguj</a>
-                <!--
-                <form name="login" method="post" action="login.php">
-                    <fieldset>
-                        <legend>Logowanie</legend>
-                        <label for="username">Nazwa użytkownika:</label><br>
-                        <input type="text" id="username" name="username" required><br>
-                        <label for="password">Hasło:</label><br>
-                        <input type="password" id="password" name="password" required><br>
-                        <input type="submit" value="Zaloguj"><br>
-                    </fieldset>
-                </form>
-                <form name="register" method="post" action="register.php">
-                    <fieldset>
-                        <legend>Rejestracja</legend>
-                        <label for="email_addr">Adres email:</label><br>
-                        <input type="email" name="email_addr" id="email_addr">
-                        <label for="new_user">Nazwa użytkownika:</label> <br>
-                        <input type="text" name="username" id="new_user" required> <br>
-                        <label for="new_password">Hasło:</label> <br>
-                        <input type="password" id="new_password" name="password" required> <br>
-                        <label for="new_rep_password">Powtórz hasło:</label> <br>
-                        <input type="password" id="new_rep_password" name="rep_password" required> <br>
-                        <input type="submit" value="Zarejestruj"> <br>
-                    </fieldset>
-                </form>
-                -->
-            </aside>
         </main>
     <?php
         include 'foot.php';

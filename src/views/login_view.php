@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
     <?php
-        include 'head.php';
+        include 'includes/head.php';
     ?>
         <form name="login" method="post" action="/login">
             <fieldset>
@@ -17,6 +17,6 @@
             </p>
         </form>
     <?php
-        include 'foot.php';
+        include 'includes/foot.php';
     ?>
 </html>

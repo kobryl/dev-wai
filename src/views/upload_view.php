@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
     <?php
-        include 'head.php';
+        include 'includes/head.php';
     ?>
         <form name="upload" method="post" action="/upload" enctype="multipart/form-data">
             <fieldset>
@@ -25,6 +25,6 @@
             </p>
         </form>
     <?php
-        include 'foot.php';
+        include 'includes/foot.php';
     ?>
 </html>

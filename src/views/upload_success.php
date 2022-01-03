@@ -3,6 +3,6 @@
     <?php
         include "head.php";
         echo $result;
-        include 'foot.php'
+        include 'includes/foot.php'
     ?>
 </html>

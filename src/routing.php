@@ -8,4 +8,5 @@ $routing = [
     '/register' => 'register',
     '/logout' => 'logout',
     '/bookmarked' => 'bookmarked',
+    '/search' => 'search'
 ];

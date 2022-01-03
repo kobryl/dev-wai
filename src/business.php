@@ -199,3 +199,7 @@ function getPhoto($photo, &$photos, &$addr, $dir_t, $dir_w) {
     $addr['thumb'][] = getAddr($dir_t, $photo['name']);
     $addr['wm'][] = getAddr($dir_w, $photo['name'] . '_watermark.png');
 }
+
+function getAjaxResponse() {
+
+}

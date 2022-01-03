@@ -1,6 +1,5 @@
 <head>
     <meta name="author" content="Konrad Bryłowski">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Galeria kawy</title>
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
     <?php
-        include 'head.php';
+        include 'includes/head.php';
     ?>
     <form name="register" method="post" action="/register">
         <fieldset>
@@ -21,6 +21,6 @@
         </p>
     </form>
     <?php
-        include 'foot.php';
+        include 'includes/foot.php';
     ?>
 </html>

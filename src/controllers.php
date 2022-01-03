@@ -190,3 +190,30 @@ function bookmarked(&$model) {
     }
     return 'bookmarked_view';
 }
+
+function search(&$model) {
+    $model['photos'] = [];
+    $model['addr'] = [];
+    $user = $_SESSION['user_id'] ?? false;
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $q = $_POST['search'] ?? null;
+        if ($q === null or strlen($q) == 0) {
+            echo 'Brak zdjęć do wyświetlenia';
+            die;
+        } else {
+            $dir_t = './images/thumbnails';
+            $dir_w = './images/watermark';
+            $photos = getPhotos();
+            foreach ($photos as $photo) {
+                if (!isset($photo['private']) or $photo['private'] == 'false' or $photo['author'] == getUserById($user)) {
+                    if (strpos($photo['title'], $q) !== false) {
+                        getPhoto($photo, $model['photos'], $model['addr'], $dir_t, $dir_w);
+                    }
+                }
+            }
+            return 'partial/search_results';
+        }
+    } else {
+        return 'search_view';
+    }
+}

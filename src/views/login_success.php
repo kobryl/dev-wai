@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <?php
-        include 'head.php';
+        include 'includes/head.php';
         echo $result;
-        include 'foot.php';
+        include 'includes/foot.php';
     ?>
 </html>

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="pl">
     <?php
-        include 'head.php';
+        include 'includes/head.php';
     ?>
     <p>
         Zarejestrowano pomyślnie.<br>
         <a href="/login">Zaloguj się</a>
     </p>
     <?php
-        include 'foot.php';
+        include 'includes/foot.php';
     ?>
 </html>

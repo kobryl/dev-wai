@@ -205,7 +205,7 @@ function search(&$model) {
             $photos = getPhotos();
             foreach ($photos as $photo) {
                 if (!isset($photo['private']) or $photo['private'] == 'false' or $photo['author'] == getUserById($user)) {
-                    if (strpos(strtolower(['title']), strtolower($q)) !== false) {
+                    if (strpos(strtolower($photo['title']), strtolower($q)) !== false) {
                         getPhoto($photo, $model['photos'], $model['addr'], $dir_t, $dir_w);
                     }
                 }

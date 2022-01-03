@@ -1,6 +1,5 @@
 <?php
 require_once 'business.php';
-require_once 'controller_utils.php';
 
 function gallery(&$model) {
     $user = $_SESSION['user_id'] ?? false;
@@ -206,7 +205,7 @@ function search(&$model) {
             $photos = getPhotos();
             foreach ($photos as $photo) {
                 if (!isset($photo['private']) or $photo['private'] == 'false' or $photo['author'] == getUserById($user)) {
-                    if (strpos($photo['title'], $q) !== false) {
+                    if (strpos(strtolower(['title']), strtolower($q)) !== false) {
                         getPhoto($photo, $model['photos'], $model['addr'], $dir_t, $dir_w);
                     }
                 }
